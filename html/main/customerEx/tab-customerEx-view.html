@@ -1,0 +1,57 @@
+		<ion-view>
+
+			<ion-nav-title>
+				{{customer.FirstName}}
+			</ion-nav-title>
+
+			<ion-nav-buttons side="left" ng-init="vm={}">
+
+				<button fix-history where="tab.customerExList" params="{IsFav:0}" ng-if="vm.boolIf===undefined ? true : vm.boolIf" bool-if="vm.boolIf" class='button button-icon icon ion-android-arrow-back'></button>
+			</ion-nav-buttons>
+
+			<ion-content padding="true" style="background-color:  #EEEEEE" on-swipe-right="onSwipeRight()">
+
+				<div class="list card">
+
+					<div class="item item-avatar">
+						<img ng-src="{{customer.Avatar}}">
+						<h2> <i class="icon" ng-class="{true: 'ion-male', false: 'ion-female'}[customer.Sex]"></i>{{customer.FirstName}}  
+							<span ng-if="customer.V3" ng-click="testViewFn($event,customer.V3);" style=" right: -22px; top: -22px; position: absolute;">
+								<img  src="images/ewm.jpg" width="44px" style="-webkit-transform: rotate(-45deg);"/>
+							</span>
+						</h2>
+						<p>
+							<i class="icon ion-ios-location"></i><span ng-bind="RName" ng-repeat="RName in Region.getAllText(customer.District)"></span>&nbsp;
+						</p>
+						<span style="position: absolute;right: 15px;top: 15px;font-size: 2em;" ng-disabled="customer.IsFav" ng-click="addC(customer)">
+							<i ng-style="{'color': (customer.IsFav?'grey':'green')    }" class="icon ion-plus-round"></i>  
+						</span>
+					</div>
+
+					<div class="item item-body" style="padding: 0;">
+
+						<div ng-if="customer" class="row  " style="padding: 0px 3px;" ng-repeat="tpIndex in getArr(  
+				(msgs=(Msg.data    | filter:    {CUserID:customer.CUserID}      :true  )).length/3 
+				) track by $index">
+							<div class="col col-33 " style="padding: 5px 3px;" ng-repeat="item in compact([msgs[tpIndex*3],msgs[tpIndex*3+1],msgs[tpIndex*3+2]])  
+						track by item.MsgID">
+
+								<div ui-sref="tab.galleryView({MsgID:item.MsgID})" style="
+    height: 31vw; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center, center;" ng-style="::{'background-image':'url('+item.AttachFiles[0]+')' }    "></div>
+
+							</div>
+
+						</div>
+
+						<ion-infinite-scroll distance="10%" ng-if="customer&&!Msg.IsLast[keyName]" on-infinite="loadMore()">
+						</ion-infinite-scroll>
+						<div class="padding" ng-if="Msg.IsLast[keyName]" style="text-align: center;">没有更多了...</div>
+					</div>
+				</div>
+
+			</ion-content>
+
+		</ion-view>

@@ -1,0 +1,65 @@
+		<ion-view>
+
+			<ion-nav-title>
+				会员列表
+			</ion-nav-title>
+
+			<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+				<div class="tabs" style=" top:0">
+					<a class="tab-item" ng-class="{'active':params.IsFav==0}" ui-sref="tab.customerExList({IsFav:0})">
+         
+      全部 
+        </a>
+
+					<a class="tab-item" ng-class="{'active':params.IsFav==1}" ui-sref="tab.customerExList({IsFav:1})">
+           好友
+        </a>
+				</div>
+			</div>
+
+			<ion-content style="background-color:  #EEEEEE;top:44px">
+
+				<ion-list>
+					<ion-item class="item item-avatar" force-refresh-images="true" item-height="75" item-render-buffer="6" item-width="100%" collection-repeat="item in  CustomerEx.data   | filter:   
+	(  params.IsFav*1===0
+   ? {}
+  : {IsFav:true}
+   ) 
+   :true  | orderBy:'+CustomerID'
+	 track by item.CustomerID  ">
+
+						<img ng-src="{{item.Avatar}}" ui-sref="tab.customerExView({CustomerID: item.CustomerID})">
+						<h2> 
+							<span ui-sref="tab.customerExView({CustomerID: item.CustomerID})" >
+								<i class="icon" ng-class="{true: 'ion-male', false: 'ion-female'}[item.Sex]"></i>{{item.FirstName}} 
+							</span>
+							<span ng-if="item.V3" ng-click="testViewFn($event,item.V3);" style=" right: -22px; top: -22px; position: absolute;">
+								<img  src="images/ewm.jpg" width="44px" style="-webkit-transform: rotate(-45deg);"/>
+							</span>
+							
+							
+							<a ng-if="params.IsFav=='0'" class="item-icon-right" style="position: absolute;right: 15px;top: 15px;font-size: 2em;"> 
+									<i ng-disabled="item.IsFav" ng-click="addC(item)"
+										 ng-style="{'color': (item.IsFav?'grey':'green')    }" class="icon ion-plus-round"></i> 
+							</a> 
+						 
+						</span>
+							
+						</h2>
+						<p>
+
+							<i class="icon ion-ios-location"></i> <span ng-bind="RName" ng-repeat="RName in Region.getAllText(item.District)"></span>&nbsp;
+
+						</p>
+
+					</ion-item>
+
+				</ion-list>
+
+				<ion-infinite-scroll ng-if="params.IsFav=='0'&&!CustomerEx.IsLast[keyName]" on-infinite="loadMore()">
+				</ion-infinite-scroll>
+				<div class="padding" ng-if="params.IsFav=='0'&&CustomerEx.IsLast[keyName]" style="text-align: center;">没有更多了...</div>
+				<div class="padding" ng-if="params.IsFav=='1'" style="text-align: center;">没有更多了...</div>
+			</ion-content>
+
+		</ion-view>

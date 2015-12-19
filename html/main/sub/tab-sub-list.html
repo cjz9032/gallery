@@ -1,0 +1,39 @@
+	<ion-view>
+
+			<ion-nav-title>
+				话题列表
+			</ion-nav-title>
+			<ion-content style="background-color:  #EEEEEE;">
+
+				<ion-list>
+
+					<div class="list card" ng-init="Msg.getsSubs(sub.BoardNo,6)" ng-repeat="sub in ::MsgBoard.data.subs 
+	 | orderBy:'-MsgNum'
+	 track by sub.BoardNo">
+						<div class="item item-body" ui-sref="tab.topicList({Sub:sub.BoardNo})">
+							<strong style="font-size: 0.9em;">{{::sub.BoardName}}  ( {{::sub.MsgNum}} )</strong>
+						</div>
+
+						<div class="row" style="padding: 0px 3px;" ng-repeat="tpIndex in getArr(  
+				(msgs=( Msg.data| filter2: sub.BoardNo  | limitTo: 6 ) ).length/3 
+				) track by $index">
+							<div class="col col-33 " style="padding: 5px 3px;" ng-repeat="item in compact([msgs[tpIndex*3],msgs[tpIndex*3+1],msgs[tpIndex*3+2]])  
+						track by $index">
+
+								<div ui-sref="tab.topicView({MsgID:item.MsgID})" style=" height: 31vw;  background-size: cover;background-repeat: no-repeat; background-position: center, center;" ng-style="::{'background-image':'url('+item.AttachFiles[0]+')' }    "></div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</ion-list>
+				<!--
+				<ion-infinite-scroll distance="0" ng-if="!Msg.IsLast[keyName]"  on-infinite="loadMore()">
+				</ion-infinite-scroll>
+				<div class="padding" ng-if="Msg.IsLast[keyName]" style="text-align: center;">没有更多了...</div>  
+-->
+
+			</ion-content>
+		</ion-view>

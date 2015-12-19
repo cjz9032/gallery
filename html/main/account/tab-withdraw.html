@@ -1,0 +1,55 @@
+	<ion-view>
+
+			<ion-nav-title>
+				<!--
+				我要提现(可提{{ Profile.isVIP() ? (Profile.info.Deposit|currency : '￥' : 2 ) : (Profile.info.Score2+Profile.info.Score3+Profile.info.Score4+ (Profile.info.V3?5:0) + Profile.info.SumBonus|currency : '￥' : 2) }})
+                -->
+                我要提现
+
+			</ion-nav-title>
+			<ion-nav-buttons side="right">
+				<button ui-sref="tab.profile({})" class="button button-clear button-balanced">取消</button>
+			</ion-nav-buttons>
+
+			<ion-content on-swipe-right="onSwipeRight()">
+
+				<div class="list padding">
+		 
+		 	<div  ng-if="!isWX"  	class="item  item-button-right " ng-init=""  >
+	 
+		 <h2>	持卡人:{{vm.payAccount.FullName}}</h2>
+      <p>卡号:{{vm.payAccount.CardNo}}</p>
+		<button class="button button-positive" ng-click="selectPACT()">
+      <i class="ion ion-edit" ></i>
+    </button>
+			</div> 
+					<form name="withdraw_form" novalidate ng-submit="withdraw(vm.payAccount.PAID,amount)">
+						<div class="item item-divider">
+							提取零钱 <i class="ion ion-chevron-right"></i>
+						</div>
+						<div class="item item-input-inset">
+							<label class="item-input-wrapper">
+								
+							<p style="position: absolute;
+left: 22px;
+top: 0;
+font-size: 0.8em;">可提{{ Profile.isVIP() ? (Profile.info.Deposit|currency : '￥' : 2 ) : (Profile.info.Score2+Profile.info.Score3+Profile.info.Score4+ (Profile.info.V3?5:0) + Profile.info.SumBonus|currency : '￥' : 2) }}</p>		
+								
+								<input required="required" type="number" placeholder="提取金额" ng-model="amount"
+									 ng-min=":: (Profile.isVIP() ? 1 :100)  ">
+								<p style="position: absolute;
+left: 22px;
+top: 50px;
+font-size: 0.8em;">您是{{:: (Profile.isVIP() ? '高级会员' :'普通会员') }},提取金额不得小于{{:: (Profile.isVIP() ? 1 :100) }}元</p>
+							</label>
+							<button ng-disabled="withdraw_form.$invalid||buttonD||withdraw_form.$pending" class="button  button-balanced">
+								提取 <i ng-show="buttonD" class="ion ion-load-d"></i>
+							</button>
+
+						</div>
+					</form>
+
+				</div>
+			</ion-content>
+
+		</ion-view>

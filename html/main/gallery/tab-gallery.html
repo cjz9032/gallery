@@ -1,0 +1,27 @@
+			<ion-view ng-init="vm=vm||{}"> 
+				<ion-scroll delegate-handle="boardsScroll" direction="x" class="tsb-hscroll" style=" position: absolute; top: 0; left: 0; right: 55px;">
+				<span id="board-{{::msgBoard.BoardNo}}" ng-class="{'active':msgBoard.BoardNo===vm.p.BoardNo*1}" ui-sref="tab.gallery.galleryList({BoardNo:msgBoard.BoardNo,CUserID:0})" ng-repeat="msgBoard in ::MsgBoard.data.boards track by $index">
+									   {{::msgBoard.BoardName}}
+								</span>
+			</ion-scroll>
+			<span ng-click="::vm.navs=!vm.navs;" style="position: absolute; top: 0 ; right: 0;line-height: 0px;padding: 15px;">
+						  <i class="ion ion-chevron-down" ng-class="{true: 'ion-chevron-up', false: 'ion-chevron-down'}[vm.navs]"></i> 
+					</span>
+
+			<ion-content has-bouncing="false" ng-show="vm.navs" style="top: 44px;z-index: 100;">
+				<div class="list">
+					<label class="item item-radio"  ui-sref="tab.gallery.galleryList({BoardNo:msgBoard.BoardNo,CUserID:0})" ng-repeat="msgBoard in ::MsgBoard.data.boards track by $index">
+						<input type="radio" name="group" value="123456">
+						<div class="radio-content">
+							<div class="item-content" ng-style="{'color': msgBoard.BoardNo===vm.p.BoardNo*1?'#00a5e0':'' }">
+								{{::msgBoard.BoardName}}
+							</div>
+							<i class="radio-icon ion-checkmark"></i>
+						</div>
+					</label>
+
+				</div>
+			</ion-content>			
+					
+		<ion-nav-view style="top: 44px;" name="tab-gallery"></ion-nav-view>	
+		</ion-view>

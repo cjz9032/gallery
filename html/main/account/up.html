@@ -1,0 +1,13 @@
+﻿		<div class="list padding" ng-hide="upHide">
+			<form name="ewm_form" novalidate ng-submit="formData.submit()">
+				<div style="padding: 10px;"><img style="max-height: 350px;" ng-src="{{formData.$$EWMSrcsTemp[0]||Profile.info.V3}}" width="100%" /></div>
+				<div class="button button-balanced button-full" ng-init="formData.$$EWMSrcsTemp=[]" ng-click="getPics(formData.$$EWMSrcsTemp,1)">选取二维码</div>
+				<div style="text-align: center;color: brown;">
+					<h4><a href="others/qrdemo.html">不知道如何上传？查看示范</a></h4></div>
+
+				<input required="required" type="hidden" ng-model="formData.$$EWMSrcsTemp[0]" />
+				<div>
+
+				</div>
+			</form>
+		</div>

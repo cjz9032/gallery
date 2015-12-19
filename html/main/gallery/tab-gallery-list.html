@@ -1,0 +1,30 @@
+	<ion-view ng-init="vm=vm||{}">
+
+			<ion-nav-title>
+				图酷精选
+			</ion-nav-title>
+
+	
+
+			<ion-content has-header style="background-color:  #EEEEEE;top:0;">
+
+				<ion-slide-box show-pager="false" does-continue="true" auto-play="true" slide-interval="3000" ng-if="::params.BoardNo*1===0">
+					<ion-slide ng-repeat="adv in  Adv.data |filter :{CategoryNo:'index'}:true">
+						<div>
+							<a ng-href="{{::adv.LinkUrl}}">
+								<img width="100%" ng-src="{{::adv.MediaUrl}}" />
+							</a>
+							<span style="text-indent: 15px;position: absolute;bottom: 5px;background-color: rgba(0,0,0,0.6);left: 0;right: 0;  color: #BFB2B2;">  {{::adv.AdvName}}   </span>
+						</div>
+					</ion-slide>
+
+				</ion-slide-box>
+
+				<ion-list ng-include="'glist.html'">
+				</ion-list>
+
+				<ion-infinite-scroll distance="0" ng-if="!Msg.IsLast[keyName]" on-infinite="loadMore()">
+				</ion-infinite-scroll>
+				<div class="padding" ng-if="Msg.IsLast[keyName]" style="text-align: center;">没有更多了...</div>
+			</ion-content>
+		</ion-view>

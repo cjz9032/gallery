@@ -1,0 +1,10 @@
+﻿		<!--filter....-->
+		<select ng-model="wrapRegion.province" ng-options=" provinceRegionNo as regions[provinceRegionNo].RegionName group by regions[provinceRegionNo].HotKey  for  provinceRegionNo  in  Region.orderHotkey   ">
+			<option value="">选择省份</option>
+		</select>
+		<select ng-model="wrapRegion.city" ng-show="wrapRegion.province&& (!Region.isDirect(regions[wrapRegion.province])) " ng-options="  cityRegionNo as  Region.getAny(cityRegionNo).RegionName   for  cityRegionNo  in    getIntKeys(regions[wrapRegion.province].child)   ">
+			<option value="">选择城市</option>
+		</select>
+		<select ng-model="wrapRegion.district" ng-show="wrapRegion.city  " ng-options=" districtRegionNo as  Region.getAny(districtRegionNo).RegionName   for districtRegionNo  in   getIntKeys(regions[wrapRegion.province].child[wrapRegion.city].child)    ">
+			<option value="">选择地区</option>
+		</select>

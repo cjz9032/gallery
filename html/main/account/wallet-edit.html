@@ -1,0 +1,25 @@
+ <form name="edit_form" novalidate ng-submit="editWallet()">
+
+	 <ion-list ng-init="editAccount.PayWayNo=PayAccount.payWayNoCode.Ali">
+	 	
+  <ion-radio  
+  	ng-model="editAccount.PayWayNo" ng-value="p.PayWayNo"
+  	ng-repeat="    p in (PayAccount.payWayNoCode.PayWayNos|filter : {name: '!50025'} :true) ">
+  	
+  	 {{p.FullName}}
+  	 </ion-radio>
+ 
+ 
+  <label class="item item-input">
+  	  <input type="text" required="required" ng-model="editAccount.FullName" placeholder="持卡人姓名">
+  </label>
+  <label class="item item-input">
+ 	<input type="text" required="required" ng-model="editAccount.CardNo" placeholder="卡号">
+  </label> 
+ 
+ 
+</ion-list>
+	  <button ng-disabled="edit_form.$invalid"
+	  	 class="button button-full button-balanced" >确定
+	  </button>
+	   </form>

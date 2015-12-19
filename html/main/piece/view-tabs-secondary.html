@@ -1,0 +1,6 @@
+		<a class="tab-item" href="javascript:;" ng-class="{'activated':msg.IsFav}" ng-disabled="(!msg.favs)||msg.IsFav" ng-click="::testViewFn2($event,msg)">
+			<i class="icon ion-thumbsup" ng-style="{'color':msg.IsFav?'#0a9ec7':'' }"></i> 赞
+		</a>
+		<a class="tab-item" href="javascript:;" ng-click="::shareBackdrop()">
+			<i class="icon ion-share"></i> 分享
+		</a>

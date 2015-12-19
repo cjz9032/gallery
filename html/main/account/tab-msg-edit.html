@@ -1,0 +1,94 @@
+	<ion-view>
+
+			<ion-nav-title>
+				编辑帖子
+			</ion-nav-title>
+
+			<ion-nav-buttons side="right">
+				<button ui-sref="tab.profile({})" class="button button-clear button-balanced">取消</button>
+			</ion-nav-buttons>
+
+			<form name="edit_form" novalidate ng-submit="formData.submit()">
+
+				<div class="bar bar-footer bar-balanced">
+
+					<button type="submit" style="color: white;" ng-disabled="edit_form.$invalid||vm.buttonD" class="title button button-clear">
+						编 辑
+					</button>
+				</div>
+
+				<ion-content style="background-color:  #EEEEEE;bottom: 44px;" ng-init="formData.$$srcsTemp=[];">
+
+					<div class="list" style="background: 
+white;">
+
+						<label class="item item-input" ng-click="deleteSum()">
+							<span style="color: #B8B8B8;">原有图片 </span>
+						</label>
+						<div style="font-size: 0;padding: 15px;">
+							<div style="height: 100px;background-color: grey;width: 30%;display:inline-block;margin-right: 3px;" ng-repeat="oldSrc in msgDetail.AttachFiles track by $index">
+
+								<img width="100%" height="auto" ng-src="{{oldSrc}}" style="max-height: 100%;" />
+								<!-- 作者：402821051@qq.com  -->
+								<i ng-click="delSum(oldSrc,$index)" class="ion-ios-close" style="font-size: 24px;position: absolute;margin-left: -0.5em;margin-top: -0.5em;"></i>
+							</div>
+
+						</div>
+
+						<label class="item item-input" ng-init="maxLen=6" ng-disabled="formData.$$srcsTemp.length===(maxLen-msgDetail.AttachFiles.length)" ng-click="getPics(formData.$$srcsTemp,(maxLen-msgDetail.AttachFiles.length)-formData.$$srcsTemp.length,-2)">
+							<span style="color: #B8B8B8;">新增图片({{(maxLen-msgDetail.AttachFiles.length)-formData.$$srcsTemp.length}})</span>
+						</label>
+						<div style="font-size: 0;">
+
+							<input name="wximgs" type="hidden" ng-required="!msgDetail.AttachFiles.length" ng-model="formData.$$srcsTemp[0]" />
+
+							<div style="text-align: center;">
+
+								<div class="row  " ng-repeat="i in  getArr( Math.ceil( formData.$$srcsTemp.length/3 ) ) track by $index">
+
+									<div class="col col-33" ng-repeat="item in  formData.$$srcsTemp  | limitTo : 3 : i*3  track by $index" ng-init="k=$index">
+
+										<div style="height: 100px;background-color: grey;">
+
+											<img width="100%" height="auto" ng-src="{{formData.$$srcsTemp[k+i*3]}}" ng-click="getPics(formData.$$srcsTemp,1,k+i*3)" style="max-height: 100%;" />
+											<!-- 作者：402821051@qq.com  -->
+											<i ng-click="   formData.$$srcsTemp.splice(k+i*3,1) " class="ion-ios-close" style="font-size: 24px;position: absolute;margin-left: -0.5em;margin-top: -0.5em;"></i>
+										</div>
+
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+
+						<label class="item item-input">
+							<input type="text" placeholder="主题(可不填)" name="Title" ng-model="msgDetail.Subject">
+						</label>
+
+						<label class="item item-input">
+							<textarea rows="6" name="Intro" required="required" ng-model="msgDetail.Detail" style="width: initial;" placeholder="说点什么"></textarea>
+						</label>
+
+								<label ng-if="!isAndroid" class="item item-input"> 
+							<tags-input  ng-model="vm.tags" placeholder="{{placeholder}}" replace-spaces-with-dashes="false">
+							</tags-input>  
+						</label> 
+						<div class="padding">
+							<my-tags-input  ng-if="isAndroid" tags="vm.tags"></my-tags-input>	
+						</div>
+						<label class="item item-input" ng-if="::msgDetail.Sub.length">
+							参与话题:<span ng-repeat="sub in ::msgDetail.Sub">#&nbsp;&nbsp;{{::sub.BoardName}}</span>
+						</label>
+
+						</label>
+
+					</div>
+
+					<div>
+
+					</div>
+
+				</ion-content>
+			</form>
+		</ion-view>

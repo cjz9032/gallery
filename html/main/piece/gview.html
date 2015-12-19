@@ -1,0 +1,42 @@
+		<div class="item item-avatar">
+			<img ng-src="{{::customer.Avatar}}" ui-sref="tab.customerExView({CustomerID:customer.CustomerID})">
+			<h2 ui-sref="tab.customerExView({CustomerID:customer.CustomerID})"> <i class="icon" ng-class="{true: 'ion-male', false: 'ion-female'}[customer.Sex]"></i>{{::customer.FirstName}}</h2>
+			<p>
+				<i class="icon ion-ios-location"></i> <span ng-bind="::RName" ng-repeat="RName in ::Region.getAllText(customer.District)"></span>&nbsp;
+			</p>
+
+			<a ng-if="::msg.isMine" class="item-icon-right" ui-sref="tab.msgEdit({MsgID:msg.MsgID})" style="position: absolute;right: 55px;top: 25px;font-size: 2em;color:grey">
+				<i style="font-size: 30px;" class="icon ion-edit"></i>
+			</a>
+
+			<a ng-if="::msg.isMine" class="item-icon-right" style="position: absolute;right: 15px;top: 25px;font-size: 2em;color:grey">
+				<i ng-click="::deleteMsg(msg.MsgID,msg.Subject)" class="icon ion-trash-a"></i>
+			</a>
+		</div>
+
+		<div class="item item-body" style="padding: 0;">
+
+			<img ng-repeat=" src in msg.AttachFiles" class="full-image" ng-src="{{::src}}" on-hold="::openCarousel(msg.AttachFiles)">
+
+			<p class="padding" style="margin-top: 0;">
+				{{::msg.Detail}}
+			</p>
+			<div ng-show="!!msg.Star" class="padding" style="margin-top: 0;">
+
+				<div ng-repeat="fav in msg.favs ">
+					<span class="item item-avatar" ui-sref="tab.customerExView({CUserID:fav.UserID})"> 
+    		<img   style="border-radius: initial;"  ng-src="{{fav.Pic}}" /> 
+    <h2>{{fav.Title}}</h2> 
+  </span>
+				</div>
+				<div>等{{msg.Star}}人觉得很赞</div>
+
+			</div>
+
+			<p class="padding" ng-include="'tags-subs.html'" style="margin-top: 0;" ng-if="msg.tags.length||msg.Sub.length">
+			</p>
+		</div>
+
+		<div ng-include="'view-tabs-secondary.html'" class="item tabs tabs-secondary tabs-icon-left">
+
+		</div>

@@ -1,0 +1,9 @@
+﻿	<div>
+									 <ul>
+						 	<li  class="button  button-small my-tag-item" ng-repeat="tag in tags track by $index"  >
+							{{tag.text}}
+							<span   class="badge badge-dark " ng-click="removeTag($index)">X</span>
+							</li>
+						 </ul> 
+						 <input ng-disabled="tags.length>7" placeholder="最多可添加8个标签" class="input" ng-trim="false"  ng-model="cand"     />
+		</div>   

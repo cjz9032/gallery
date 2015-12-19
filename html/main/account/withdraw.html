@@ -1,0 +1,45 @@
+	<div class="list padding">
+			<div class="item item-divider" ng-init="PayAccount.data.length?'':walletShow=true" ng-click="walletShow=!walletShow">
+				我的钱包 <i class="ion" ng-class="{true: 'ion-android-arrow-dropup', false: 'ion-android-arrow-dropdown'}[walletShow]"></i>
+
+			</div>
+			<div ng-show="walletShow">
+				<a ng-click="ACPopup(item)" ng-repeat="item in PayAccount.data track by item.PAID" class="item  item-icon-right" href="javascript:;">
+       {{PayAccount.payWayNoCode.Ali===item.PayWayNo ?'支付宝' :'微信'}}  :  {{item.FullName+'('+ item.CardNo +')'}}  
+          <i class="icon ion-arrow-right-c"></i>
+        </a>
+				<a class="item  item-icon-right" href="javascript:;" ng-click="ACPopup()">
+                新增卡号
+                <i class="icon ion-arrow-right-c"></i>
+        </a>
+			</div>
+			<form name="withdraw_form" novalidate ng-submit="withdraw(selectID,amount)">
+				<div class="item item-divider">
+					提取零钱 <i class="ion ion-chevron-right"></i>
+				</div>
+				<label class="item item-input item-select">
+					<div class="input-label">
+						选择帐号
+					</div>
+
+					<select style="width:initial;" required="required" ng-model="selectID">
+						<option value="{{item.PAID}}" ng-repeat="item in PayAccount.data track by item.PAID">{{item.FullName +' '+ item.CardNo}}</option>
+					</select>
+				</label>
+
+				<div class="item item-input-inset">
+					<label class="item-input-wrapper">
+						<input required="required" type="number" placeholder="提取金额" ng-model="amount" min="100">
+						<p style="position: absolute;
+left: 22px;
+top: 50px;
+font-size: 0.8em;">提取金额不得小于100元</p>
+					</label>
+					<button ng-disabled="withdraw_form.$invalid" class="button  button-balanced">
+						提取
+					</button>
+
+				</div>
+			</form>
+
+		</div>

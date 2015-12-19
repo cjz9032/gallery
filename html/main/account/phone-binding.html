@@ -1,0 +1,27 @@
+		<form name="phone_form" novalidate ng-submit="bindPhone()">
+
+			<div class="list">
+				<label class="item item-input">
+					<input type="tel" placeholder="手机号" name="cellPhone" required="required" ng-pattern="/\d{11}/" ng-model="cellPhone" />
+				</label>
+
+				<label class="item item-input">
+					<input type="number" name="verifyCode" placeholder="验证码" ng-pattern="/\d{4}/" ng-model="verifyCode" />
+				</label>
+				<div id="">
+					<img title="点击图片刷新验证码" height="45px" width="auto" ng-click="refreshCodeSrc()" ng-src="{{codeSrc}}">
+					<div ng-disabled=" (!(cellPhone&&verifyCode))||coolDown" ng-bind="coolDown?'(1分钟后获取)':'获取短信验证码'" class="button button-balanced" ng-click="SMSVerifyCode()"></div>
+				</div>
+
+				<label class="item item-input">
+					<input type="text" name="vCode" placeholder="短信验证码" required="required" ng-model="vCode" />
+				</label>
+			</div>
+
+			<div class="padding">
+				<button type="submit" ng-disabled="phone_form.$invalid" class="button button-block button-positive">
+					绑　定
+				</button>
+			</div>
+
+		</form>

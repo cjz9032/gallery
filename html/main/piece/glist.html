@@ -1,0 +1,37 @@
+		<div item-height="getHeight(msg)" item-width="fullWidth" collection-repeat="msg in ( Msg.data 
+	  | filter:(params.BoardNo*1 ?    {BoardNo:(params.BoardNo*1)}  :  undefined )     :true            
+	| filter :  myComp          
+	  | orderBy:'-MsgID'
+	  ) track by msg.MsgID">
+
+			<div class="list card">
+				<div class="item item-avatar" ng-include="'avatar-with-edit.html'" ui-set="uiSet" var="customer" expression="(CustomerEx.data | filter:{CUserID:msg.CUserID }:true)[0]">
+
+				</div>
+
+				<div class="item item-body" style="padding: 0;">
+
+					<a style="line-height: 0;" ng-href=" {{ $root.toState.name==='tab.gallery.galleryList'
+						? '#/galleryView/'+msg.MsgID
+						:  '#/topicView/'+msg.MsgID     }}">
+						<img class="full-image" ng-src="{{msg.AttachFiles[0]}}" on-hold="::openCarousel(msg.AttachFiles)">
+						<span style="line-height: initial;" class="badge badge-dark " ng-bind=" msg.AttachFiles.length"></span>
+					</a>
+
+					<p class="padding" style="margin: 0;height: 60px;display: block;">
+						<span class="twoline" ng-bind="msg.Detail">
+								
+							</span>
+					</p>
+
+					<p class="padding" ng-include="'tags-subs.html'" style="margin-top: 0;" ng-if="msg.tags.length||msg.Sub.length">
+
+					</p>
+				</div>
+
+				<div ng-include="'list-tabs-secondary.html'" class="item tabs tabs-secondary tabs-icon-left" style="background-color: #E9E9E9;">
+
+				</div>
+			</div>
+
+		</div>

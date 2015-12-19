@@ -1,0 +1,31 @@
+		<ion-view>
+				<ion-nav-title>
+我的钱包
+			</ion-nav-title>
+						<ion-nav-buttons side="right">
+				<button ui-sref="tab.profile({})" class="button button-clear button-balanced">取消</button>
+			</ion-nav-buttons> 
+			<ion-content >
+				<div class="list"> 
+		<a class="item item-icon-left"  
+			ng-repeat="payAccount in PayAccount.data  "
+			 ng-disabled="payAccount.PayWayNo===PayAccount.payWayNoCode.Wx"
+			 ng-click="editModal(payAccount)"
+			>
+          <i class="icon" ng-class="{true: 'ion-chatbubble-working', false: 'ion-card'}[payAccount.PayWayNo===PayAccount.payWayNoCode.Wx]"></i> 
+          {{payAccount.FullName}}
+          <span class="item-note"> 
+           {{payAccount.CardNo}}
+          </span>
+        </a>
+        
+        
+        <a class="item item-icon-left"  
+        	 ng-click="editModal({})"  >
+          <i class="icon ion-plus"></i>
+          新增 
+        </a>
+				</div>
+
+			</ion-content>
+	</ion-view>

@@ -1,0 +1,17 @@
+﻿		<ion-modal-view style="   top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-height: 240px;
+    width: 100%;">
+
+			<ion-header-bar ng-show="!modal.isCarousel" class="bar-positive fix-buttons">
+				<a class="button" ng-click="closeModal()">返回</a>
+				<h1 class="title">{{modal.title}}</h1>
+			</ion-header-bar>
+
+			<ion-pane style="overflow: auto;" ng-style="{'top': (modal.isCarousel?'0':'44px')    }" ng-click="closeCarousel()" ng-include="modal.url">
+
+			</ion-pane>
+
+		</ion-modal-view>

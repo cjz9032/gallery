@@ -1,0 +1,3 @@
+		<i class="ion ion-ios-pricetag"></i>
+		<span ng-repeat="tag in msg.tags" ui-sref="tab.tagNameList({TagName:tag.text})">&nbsp;&nbsp;{{::tag.text}}</span>
+		<span ng-repeat="sub in msg.Sub" ui-sref="tab.topicList ({Sub:sub.boardNo})">&nbsp;&nbsp;#{{::sub.BoardName}}</span>

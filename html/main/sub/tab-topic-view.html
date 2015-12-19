@@ -1,0 +1,41 @@
+		<ion-view>
+
+			<ion-nav-title>
+				{{::msg.Subject ? msg.Subject : msg.Detail }}
+			</ion-nav-title>
+
+			<ion-nav-buttons side="left" ng-init="vm={}">
+				<button fix-history where="tab.subList" ng-if="vm.boolIf===undefined ? true : vm.boolIf" bool-if="vm.boolIf" class='button button-icon icon ion-android-arrow-back'></button>
+			</ion-nav-buttons>
+
+			<ion-content padding="true" style="background-color:  #EEEEEE" on-swipe-right="onSwipeRight()">
+
+				<div class="list card" ng-include="'gview.html'">
+
+				</div>
+
+				<div class="list card">
+					<div class="item item-body">
+						<span style="font-size: 0.8em;">更多文章</span>
+					</div>
+
+					<div ng-if="myMsgs.length" class="row" style="padding: 0px 3px;" ng-repeat="tpIndex in getArr(  
+				(msgs=myMsgs).length/3 
+				) track by $index">
+						<div class="col col-33 " style="padding: 5px 3px;" ng-repeat="item in ::compact([msgs[tpIndex*3],msgs[tpIndex*3+1],msgs[tpIndex*3+2]])  
+						track by item.MsgID">
+
+							<div ui-sref="tab.topicView({MsgID:item.MsgID})" style="
+    height: 31vw; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center, center;" ng-style="::{'background-image':'url('+item.AttachFiles[0]+')' }    "></div>
+
+						</div>
+
+					</div>
+
+				</div>
+			</ion-content>
+
+		</ion-view>

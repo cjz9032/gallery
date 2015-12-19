@@ -1,0 +1,18 @@
+		<ion-view ng-init="vm=vm||{}">
+
+			<ion-nav-title>
+				{{:: '-'+params.TagName}}
+			</ion-nav-title>
+			<ion-nav-buttons side="left" ng-init="vm={}">
+				<button fix-history where="tab.subList" ng-if="vm.boolIf===undefined ? true : vm.boolIf" bool-if="vm.boolIf" class='button button-icon icon ion-android-arrow-back'></button>
+			</ion-nav-buttons>
+
+			<ion-content has-header style="background-color:  #EEEEEE;top:44px;">
+
+				<ion-list ng-include="'glist.html'"> </ion-list>
+
+				<ion-infinite-scroll distance="0" ng-if="!Msg.IsLast[keyName]" on-infinite="loadMore()">
+				</ion-infinite-scroll>
+				<div class="padding" ng-if="Msg.IsLast[keyName]" style="text-align: center;">没有更多了...</div>
+			</ion-content>
+		</ion-view>

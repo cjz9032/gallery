@@ -1,0 +1,92 @@
+		<ion-view view-title="个人资料">
+			<!--
+			<ion-nav-buttons side="left" ng-init="vm2={}">
+
+				<button fix-history where="tab.profile" ng-if="vm2.boolIf===undefined ? true : vm2.boolIf" bool-if="vm2.boolIf" class='button button-icon icon ion-android-arrow-back'></button>
+			</ion-nav-buttons>
+-->
+
+			<ion-content style="background-color:  #EEEEEE;">
+
+				<div class="list">
+					<div class="item item-avatar" style="background-image: url();background-size: 100% 100%; height: 132.75px; background-color: white;padding-left: 92px;border: 0;">
+						<img ng-src="{{Profile.info.Avatar}}" class="big-avatar" style="top: 18px;
+left: 18px;" />
+						<a href="{{Profile.synPage}}" style="
+    position: absolute;
+    top: 88px;  
+    left: 15px;  
+">同步资料</a>
+						<h2 style=" line-height: 24px; ">幸运号: {{Profile.info.CustomerID}}<br>
+      	<i class="icon" ng-class="{true: 'ion-male', false: 'ion-female'}[Profile.info.Sex]"></i>
+      	 <span ng-bind="Profile.info.FirstName"></span> 
+    
+      </h2>
+						<p>
+							<i class="icon ion-ios-location"></i>
+							<span ng-bind="RName" ng-repeat="RName in Region.getAllText(Profile.info.District)"></span>&nbsp;
+							<br>
+
+							<div class="row padding-zero">
+								<div class="col"> <a href="javascript:;" ng-click="openModal('bind-phone.html','绑定手机号')">
+		   {{Profile.info.CellPhone||'绑定手机'}}
+					</a></div>
+								<div class="col"> <a href="{{Profile.isVIP() ? 'javascript:;' :   Profile.czPage}}">    
+						 {{::Profile.isVIP()? '高级会员':'普通会员(升级)'   }}
+					</a>
+								</div>
+							</div>
+						</p>
+					</div>
+
+ 
+         
+
+					<div class="row item profile-box " style="text-align: center;">
+						<div class="col"  ui-sref="tab.paidList({PayType:0,CUserID:Profile.info.SUserID,SUserID:Profile.info.CUserID,AccountType:'Deposit'}) " ><span>积分</span>
+							<br>
+							<span ng-bind="Profile.info.Score2+Profile.info.Score3+Profile.info.Score4+ (Profile.info.V3?5:0) |currency : '￥' : 2">
+  	</span>
+						</div>
+						<div class="col" ui-sref="tab.paidList({PayType:406311,CUserID:Profile.info.SUserID,SUserID:Profile.info.CUserID,AccountType:'deposit'}) "><span>奖金</span>
+							<br>
+							<span ng-bind="::Profile.info.SumBonus|currency : '￥' : 2"></span>
+						</div>
+						<div class="col" ui-sref="tab.withdraw({})"><span>可提现</span>
+							<br>
+							<span ng-bind=" Profile.isVIP() 
+  	?   (Profile.info.Deposit|currency : '￥' : 2 )
+  	: (Profile.info.Score2+Profile.info.Score3+Profile.info.Score4+ (Profile.info.V3?5:0) + Profile.info.SumBonus|currency : '￥' : 2) "></span>
+						</div>
+					</div>
+
+					<a class="item item-icon-left item-icon-right" ui-sref="tab.customerTkList({isTeam:0})">
+						<i class="icon ion-ios-people"></i> 我的团队
+						<i class="icon ion-arrow-right-c"></i>
+					</a>
+					<a class="item item-icon-left item-icon-right" ui-sref="tab.customerExView({CustomerID: Profile.info.UserID}) ">
+						<i class="icon ion-images"></i> 我的帖子
+						<i class="icon ion-arrow-right-c"></i>
+					</a>
+					<a class="item item-icon-left item-icon-right" ng-click="::openModal('up.html','上传微信二维码')">
+						<i class="icon ion-qr-scanner"></i> 我的二维码 <span ng-if="!Profile.isV3()" class="item-note">填写获得5元红包</span>
+						<i class="icon ion-arrow-right-c"></i>
+					</a>
+
+					<a class="item item-icon-left item-icon-right" ui-sref="tab.systemList({BoardNo:0,CUserID:103287})">
+						<i class="icon ion-help"></i> 系统消息
+						<i class="icon ion-arrow-right-c"></i>
+					</a>
+
+					<!-- 
+           	href="{{(Adv.data|filter :{CategoryNo:'ycs' } :true)[0].LinkUrl}}"
+           	<img ng-src="{{(Adv.data|filter :{CategoryNo:'ycs' } :true)[0].MediaUrl}}" height="30px" />
+           -->
+					<a href="{{(Adv.data|filter :{CategoryNo:'ycs' } :true)[0].LinkUrl}}">
+						<img ng-src="{{(Adv.data|filter :{CategoryNo:'ycs' } :true)[0].MediaUrl}}" width="100%" />
+					</a>
+
+				</div>
+
+			</ion-content>
+		</ion-view>

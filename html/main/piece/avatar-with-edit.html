@@ -1,0 +1,15 @@
+		<img ng-src="{{  customer.Avatar }}" ui-sref="tab.customerExView({CustomerID:0,CUserID:msg.CUserID})">
+		<h2> 
+							<span ng-bind=" customer.FirstName" ui-sref="tab.customerExView({CustomerID:0,CUserID:msg.CUserID})">  </span>
+						</h2>
+		<a ng-if="msg.isMine" class="item-icon-right" ui-sref="tab.msgEdit({MsgID:msg.MsgID})" style="position: absolute;right: 55px;top: 25px;font-size: 2em;color:grey">
+			<i style="font-size: 30px;" class="icon ion-edit"></i>
+		</a>
+
+		<a ng-if=" msg.isMine" class="item-icon-right" style="position: absolute;right: 15px;top: 25px;font-size: 2em;color:grey">
+			<i ng-click=" deleteMsg(msg.MsgID,msg.Subject)" class="icon ion-trash-a"></i>
+		</a>
+
+		<span ng-if="customer.V3" ng-click="testViewFn($event,customer.V3);" style=" right: -22px; top: -22px; position: absolute;">
+								<img  src="images/ewm.jpg" width="44px" style="-webkit-transform: rotate(-45deg);"/>
+							</span>

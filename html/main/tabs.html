@@ -1,0 +1,23 @@
+		<ion-tabs class="tabs-icon-top tabs-color-active-positive tabs-icon-only" ng-class="{'tabs-item-hide': $root.hideTabs}">
+
+			<ion-tab badge="" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" ng-click="goto('tab.gallery.galleryList',{BoardNo:MsgBoard.data.boards[0].BoardNo,CUserID:0},$event,'#/galleryList/10066/0')">
+				<ion-nav-view name="tab-gallery"></ion-nav-view>
+			</ion-tab>
+
+			<ion-tab icon-off="ion-ios-chatbubble-outline" icon-on="ion-ios-chatbubble" ng-click="goto('tab.subList',{} ,$event,'#/subList')">
+				<ion-nav-view name="tab-sub"></ion-nav-view>
+			</ion-tab>
+
+			<ion-tab icon-off="ion-ios-camera-outline" icon-on="ion-ios-camera" ng-click="goto('tab.publish',{} ,$event,'#/publish//')">
+				<ion-nav-view name="tab-publish"></ion-nav-view>
+			</ion-tab>
+
+			<ion-tab badge="" icon-off="ion-ios-personadd-outline" icon-on="ion-ios-personadd" ng-click="goto('tab.customerExList',{IsFav:0},$event,'#/customerExList/0')">
+				<ion-nav-view name="tab-customerEx"></ion-nav-view>
+			</ion-tab>
+
+			<ion-tab icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" ng-click="goto('tab.profile',{},$event,'#/account/profile')">
+				<ion-nav-view name="tab-account"></ion-nav-view>
+			</ion-tab>
+
+		</ion-tabs>
