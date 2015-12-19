@@ -11,7 +11,7 @@
     "gulp-bom": "^1.0.0",
     "gulp-concat": "^2.6.0",
     "gulp-deploy-ftp": "0.0.2",
-    "gulp-ftp": "^1.1.0",
+    "gulp-ftp": "git://git@github.com:cjz9032/gulp-ftp.git",
     "gulp-iftp": "^1.0.3",
     "gulp-ignore": "^2.0.1",
     "gulp-jshint": "^2.0.0",
