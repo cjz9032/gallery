@@ -1,7 +1,7 @@
 var gulp = require('gulp'); 
  var _ = require('lodash');
 var  FO=require('./FO.json');
- 
+var withDebug=false;
 var plugins = require('gulp-load-plugins')();
 var ftpOption=FO;
 function ftpDO(path){
@@ -16,29 +16,13 @@ var paths = {
 	build:{
 		scripts : ['build/*'] 
 	},
-	debug:{
-		aspx:['aspx/new/*.aspx'],
+	debug:{ 
 		scripts: ['js/**/*.js'],
 		html:['html/**/*.html'],
 		style:['css/*.css']
 	}	
 };	
-	 function minifyTpl(cb) {
-  return   gulp.src(paths.debug.html) 
-	  .pipe(plugins.utf8Convert())
-      .pipe(plugins.minifyHtml({empty: true, quotes: true}))
-      .pipe(plugins.angularTemplatecache('tpl.js',{
-		  standalone:true,
-		  transformUrl: function(url) {
-	return url.replace(/[^\\\/]*[\\\/]+/g,'')
-},
-module :'starter.tpl'
-		  
-	  }))  
-	  
-      .pipe(gulp.dest('js'))
-	  .on('finish', cb);
-}
+
   
 
 gulp.task('watch:code', function () {
@@ -52,14 +36,20 @@ gulp.task('watch:style', function () {
   gulp.watch([paths.debug.style], gulp.series('minifyCss','revs'));
 });
 
-function aspx(cb) {
-  return   gulp.src(paths.debug.aspx)
-      .pipe(gulp.dest('build'))
-	  .on('finish', cb);
-}
-function aspxDebug(cb) {
-  return   gulp.src(paths.debug.aspx)
-      .pipe(gulp.dest('build/debug'))
+ 	 function minifyTpl(cb) {
+  return   gulp.src(paths.debug.html) 
+	  .pipe(plugins.utf8Convert())
+      .pipe(plugins.minifyHtml({empty: true, quotes: true}))
+      .pipe(plugins.angularTemplatecache('tpl.js',{
+		  standalone:true,
+		  transformUrl: function(url) {
+	return url.replace(/[^\\\/]*[\\\/]+/g,'')
+},
+module :'starter.tpl'
+		  
+	  }))  
+	  
+      .pipe(gulp.dest('js'))
 	  .on('finish', cb);
 }
  function minify(cb) {
@@ -86,6 +76,7 @@ function aspxDebug(cb) {
 	  .on('finish', cb);
 }
  function minifyDebug(cb) {
+	 if(!withDebug) return cb();
   return   gulp.src(paths.debug.scripts)
    //	.pipe(plugins.jshint())
    // .pipe(plugins.jshint.reporter('default')) 
@@ -122,7 +113,8 @@ function rev(cb) {
  .on('finish', cb);		
 }	
 function revDebug(cb) { 
-    gulp.src(['build/debug/rev/*.json', 'aspx/index.aspx'])  
+if(!withDebug) return cb();
+   return  gulp.src(['build/debug/rev/*.json', 'aspx/index.aspx'])  
 	.pipe(plugins.utf8Convert())
         .pipe(plugins.revCollector())  
         //{
@@ -184,9 +176,7 @@ gulp.task(minifyTpl);
 
 gulp.task(minify);
 gulp.task(minifyDebug);
-
-gulp.task(aspx);
-gulp.task(aspxDebug);
+ 
 gulp.task(rev);
 gulp.task(revDebug);
 
@@ -198,7 +188,8 @@ gulp.task('revs', gulp.series('rev', 'revDebug'));
 gulp.task('scripts', gulp.series('minify', 'minifyDebug'));
 //images , jsonFile , otherPages
 gulp.task('publishStatic',gulp.series('others','images'));
-//css ,tpl+js ,revAsp
+//tpl+js ,revAsp
+gulp.task('publishSS',gulp.series('minifyTpl','scripts','revs'));
 gulp.task('publishMain',gulp.series('minifyCss','minifyTpl','scripts','revs'));
 //gulp.task('publishScripts',gulp.series('scripts','revs'));
 gulp.task('publish',gulp.series('publishStatic','publishMain'));
