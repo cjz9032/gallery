@@ -7,6 +7,6 @@ ftp FO.json <br>
 			"user": 'cxt',
 			"pass": "pass",
 			"port":2123,
-			remotePath:"/ycs/weixin/"
+			remotePath:"/ycs/weixin/galleryselection/
 }
 </code>
