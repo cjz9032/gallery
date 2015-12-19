@@ -1,12 +1,13 @@
 # gallery
-gallery selection<br>
-ftp FO.json <br>
+
+1.npm install <br>
+2.set ftp FO.json in root <br>
 <code>
 {
 			"host": "host",
-			"user": 'cxt',
+			"user": "cxt",
 			"pass": "pass",
 			"port":2123,
-			remotePath:"/ycs/weixin/galleryselection/
+			"remotePath":"/ycs/weixin/galleryselection/"
 }
 </code>
