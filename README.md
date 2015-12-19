@@ -2,7 +2,7 @@
 
 1.npm install <br>
 2.set ftp FO.json in root <br>
-<code>
+```javascript
 {
 			"host": "host",
 			"user": "cxt",
@@ -10,4 +10,4 @@
 			"port":2123,
 			"remotePath":"/ycs/weixin/galleryselection/"
 }
-</code>
+```
