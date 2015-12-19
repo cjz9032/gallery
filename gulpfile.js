@@ -1,13 +1,9 @@
 var gulp = require('gulp'); 
  var _ = require('lodash');
+var  FO=require('./FO.json');
+ 
 var plugins = require('gulp-load-plugins')();
-var ftpOption={
-			host: 'lx.yyyju.com',
-			user: 'cxt',
-			pass: 'cxt@yyyju.com',
-			port:2123,
-			remotePath:'/ycs/weixin/galleryselection/'
-};
+var ftpOption=FO;
 function ftpDO(path){
 	var obj=_.clone(ftpOption);
 	if(path){
