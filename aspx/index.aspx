@@ -57,7 +57,7 @@ int _SUserID=_WeiXin.UserID;
 		window.indexAdvs= <%=LitJson.JsonMapper.ToJson( Exobo.Web.BLL.Adv.Gets(20,900001,_SUserID,0,"index") )%>  ; 
  		window.Subs=<%=LitJson.JsonMapper.ToJson(Subs)%>;
  		window.Boards=<%=LitJson.JsonMapper.ToJson(Boards)%>;
-		
+		window.Boards.unshift({BoardName:"全部",BoardNo:0,TypeID:700002});
 	 
  
 			angular.element(document).ready(function() {
