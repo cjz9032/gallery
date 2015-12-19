@@ -127,11 +127,7 @@ if(!withDebug) return cb();
 		.pipe(plugins.ftp(ftpDO('debug')))
 .on('finish', cb);				
 }	
-function release(cb) {
-	return  gulp.src('build/js/**/*')
-		.pipe(plugins.ftp(ftpOption))
-		.pipe(plugins.util.noop());
-}
+ 
 
 function minifyCss(cb){
 		return  gulp.src(paths.debug.style)
@@ -141,9 +137,9 @@ function minifyCss(cb){
 		 
 		 .pipe(gulp.dest('build/css'))
 		 .pipe(plugins.ftp(ftpDO('css')))
-		 
-		 .pipe(gulp.dest('build/debug/css'))
-		 .pipe(plugins.ftp(ftpDO('debug/css')))
+		
+		 .pipe( !withDebug ? plugins.util.noop() : gulp.dest('build/debug/css') )
+		 .pipe(  !withDebug ? plugins.util.noop() : plugins.ftp(ftpDO('debug/css'))  )
 		.pipe(plugins.rev.manifest('build/rev/rev.json',{ 
 		base: 'build',
             merge:  true
@@ -151,7 +147,7 @@ function minifyCss(cb){
 		
        .pipe(gulp.dest('build')) 
 	   
-	   .pipe(gulp.dest('build/debug')) 
+	   .pipe(  !withDebug ? plugins.util.noop() : gulp.dest('build/debug')) 
 	   
          .on('finish', cb);
 }
@@ -182,8 +178,7 @@ gulp.task(revDebug);
 
 gulp.task(images);
 gulp.task(others);
-gulp.task(minifyCss);
-gulp.task(release);
+gulp.task(minifyCss); 
 gulp.task('revs', gulp.series('rev', 'revDebug'));
 gulp.task('scripts', gulp.series('minify', 'minifyDebug'));
 //images , jsonFile , otherPages
