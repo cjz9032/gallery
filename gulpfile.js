@@ -1,7 +1,16 @@
 var gulp = require('gulp'); 
  var _ = require('lodash');
 var  FO=require('./FO.json');
-var withDebug=false;
+
+
+var minimist = require('minimist');
+var knownOptions = {
+  string: 'env',
+  default: { env: process.env.NODE_ENV || 'production' }
+};
+
+var withDebug=minimist(process.argv.slice(2), knownOptions).env === 'debug' ;
+ 
 var plugins = require('gulp-load-plugins')();
 var ftpOption=FO;
 function ftpDO(path){
