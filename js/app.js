@@ -61,8 +61,8 @@ angular.module('starter', [
 			};
 		}
 	])
-	.controller('StepPanelController', ['currentStep', 'trainnings', 'trainningInstance', 'trainnings',
-		function(currentStep, trainnings, trainningInstance, trainnings) {
+	.controller('StepPanelController', ['currentStep', 'trainnings', 'trainningInstance',
+		function(currentStep, trainnings, trainningInstance) {
 			var vm = this;
 			vm.currentStep = currentStep;
 			vm.trainningInstance = trainningInstance;

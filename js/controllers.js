@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('TabsCtrl', function($scope, $rootScope, $timeout, $ionicLoading, $ionicHistory, $ionicSlideBoxDelegate, $ionicModal, $ionicBackdrop, $ionicPopup, $timeout, $filter, QR, WX, ImageSelect, Region,
+.controller('TabsCtrl', function($scope, $rootScope, $timeout, $ionicLoading, $ionicHistory, $ionicSlideBoxDelegate, $ionicModal, $ionicBackdrop, $ionicPopup, $filter, QR, WX, ImageSelect, Region,
 	$state, MsgBoard, Msg, CustomerEx, Fav, Profile, PayAccount, PaidRecord, Adv) {
 	//main
 	$scope.MsgBoard = MsgBoard;
