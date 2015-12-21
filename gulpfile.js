@@ -110,13 +110,11 @@ module :'starter.tpl'
 
 function rev(cb) {
     gulp.src(['build/rev/*.json','aspx/index.aspx'])  
-	 
-		 
+ 
         .pipe(plugins.revCollector())      
  .pipe(plugins.utf8Convert()) 
  .pipe(plugins.bom())   
-
-
+ 
         .pipe(gulp.dest('build'))
 		 .pipe(plugins.ftp(ftpDO()))
  .on('finish', cb);		
@@ -124,8 +122,10 @@ function rev(cb) {
 function revDebug(cb) { 
 if(!withDebug) return cb();
    return  gulp.src(['build/debug/rev/*.json', 'aspx/index.aspx'])  
-	.pipe(plugins.utf8Convert())
+	
         .pipe(plugins.revCollector())  
+		.pipe(plugins.utf8Convert())
+		 .pipe(plugins.bom())  
         //{
 		//	 replaceReved: true,
 		//	 dirReplacements: {
