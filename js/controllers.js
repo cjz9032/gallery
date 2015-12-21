@@ -282,17 +282,26 @@ angular.module('starter.controllers', [])
 		var vm = $scope.vm = {};
 		//window.de=$ionicScrollDelegate;
 		//window.ll=$location;
+		
+  	vm.scroll=function(bno){
+  		//$event.preventDefault(); 
+  		SCFN({BoardNo:bno});
+  	}
 		var SCFN = function(r) {
 			//tongxin absulute
 			var id = 'board-' + r.BoardNo;
 
-			$location.hash(id);
+			//$location.hash(id);
 			var lll = "#" + id;
-			$ionicScrollDelegate.$getByHandle('boardsScroll').anchorScroll(lll);
+			//console.log($(lll).offset().left);
+			console.log($(lll));
+			console.log($(lll).offset().left);
+			$ionicScrollDelegate.$getByHandle('boardsScroll').scrollTo($(lll).offset().left,0);  
+			//$ionicScrollDelegate.$getByHandle('boardsScroll').anchorScroll(lll);
 		};
 
 		var enter = function(e, r) {
-			$location.hash('');
+			 $location.hash(''); 
 
 			vm.p = r;
 
@@ -305,11 +314,11 @@ angular.module('starter.controllers', [])
 
 		};
 		var enterOnce = _.once(enter);
-		$scope.$on('galleryListEnter', enter);
+		$scope.$on('galleryListEnter', enterOnce);
 		$scope.$on('galleryListChange', function(e, r) {
 			vm.p = r;
 			vm.navs ? vm.navs = false : 0;
-			SCFN(r);
+		//	SCFN(r);
 		})
 	})
 	.controller('GalleryListCtrl', function($scope, $stateParams, $ionicScrollDelegate, $location, $timeout) {
