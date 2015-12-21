@@ -25,7 +25,7 @@
    ? {}
   : {IsFav:true}
    ) 
-   :true  | orderBy:'+CustomerID'
+   :true  | orderBy:'-CustomerID'
 	 track by item.CustomerID  ">
 
 						<img ng-src="{{item.Avatar}}" ui-sref="tab.customerExView({CustomerID: item.CustomerID})">
