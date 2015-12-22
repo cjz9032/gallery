@@ -308,7 +308,9 @@ angular.module('starter.controllers', [])
 			//$location.hash('');
 
 			vm.p = r;
-
+			$timeout(function(){
+				vm.scroll(r.BoardNo);
+			},0); 
 			//			$timeout(function(){
 			//					$ionicScrollDelegate.$getByHandle('boardsScroll').resize();
 			//			$ionicScrollDelegate.$getByHandle('boardsScroll').scrollTo(0,0,false);

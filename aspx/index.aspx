@@ -29,8 +29,7 @@ int _SUserID=_WeiXin.UserID;
 		<meta http-equiv="Expires" content="0" />
 		<title ng-bind="$rootScope.toState.name"></title>
 
-		<link href="//cdn.bootcss.com/ionic/1.1.0/css/ionic.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="//cdn.bootcss.com/ng-tags-input/2.3.0/ng-tags-input.min.css">
+		<link href="//cdn.bootcss.com/ionic/1.1.0/css/ionic.min.css" rel="stylesheet"> 
 		<link href="css/style.css" rel="stylesheet">	
 	</head>
 
