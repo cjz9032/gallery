@@ -282,11 +282,13 @@ angular.module('starter.controllers', [])
 		var vm = $scope.vm = {};
 		//window.de=$ionicScrollDelegate;
 		//window.ll=$location;
-		
-  	vm.scroll=function(bno){
-  		//$event.preventDefault(); 
-  		SCFN({BoardNo:bno});
-  	}
+
+		vm.scroll = function(bno) {
+			//$event.preventDefault(); 
+			SCFN({
+				BoardNo: bno
+			});
+		}
 		var SCFN = function(r) {
 			//tongxin absulute
 			var id = 'board-' + r.BoardNo;
@@ -296,12 +298,14 @@ angular.module('starter.controllers', [])
 			//console.log($(lll).offset().left);
 			console.log($(lll));
 			console.log($(lll).offset().left);
-			$ionicScrollDelegate.$getByHandle('boardsScroll').scrollTo($(lll).offset().left,0);  
+           var leftOffset=$ionicScrollDelegate.$getByHandle('boardsScroll').getScrollPosition().left ;
+			var realLeft = leftOffset + $(lll).offset().left;
+			$ionicScrollDelegate.$getByHandle('boardsScroll').scrollTo(realLeft, 0);
 			//$ionicScrollDelegate.$getByHandle('boardsScroll').anchorScroll(lll);
 		};
 
 		var enter = function(e, r) {
-			 $location.hash(''); 
+			//$location.hash('');
 
 			vm.p = r;
 
@@ -318,7 +322,7 @@ angular.module('starter.controllers', [])
 		$scope.$on('galleryListChange', function(e, r) {
 			vm.p = r;
 			vm.navs ? vm.navs = false : 0;
-		//	SCFN(r);
+			//	SCFN(r);
 		})
 	})
 	.controller('GalleryListCtrl', function($scope, $stateParams, $ionicScrollDelegate, $location, $timeout) {
@@ -844,19 +848,19 @@ angular.module('starter.controllers', [])
 		$scope.PayAccount.getAllOnce({}).then(function() {
 			$scope.loadingHideDelay();
 		});
-$scope.editModal=function(ac){
-	$scope.editAccount = _.clone(ac); 
-	$scope.openModal('wallet-edit.html','编辑帐号');
-};
-$scope.editWallet=function(){
-	//editAccount
-	//all shuaxin
-	$scope.PayAccount.editCard($scope.editAccount).then(function(){
-		alert('编辑成功');
-		$scope.closeModal();
-		//window.location.reload();
-	});
-};
+		$scope.editModal = function(ac) {
+			$scope.editAccount = _.clone(ac);
+			$scope.openModal('wallet-edit.html', '编辑帐号');
+		};
+		$scope.editWallet = function() {
+			//editAccount
+			//all shuaxin
+			$scope.PayAccount.editCard($scope.editAccount).then(function() {
+				alert('编辑成功');
+				$scope.closeModal();
+				//window.location.reload();
+			});
+		};
 	})
 	.controller('WithdrawCtrl', function($scope, $stateParams, $ionicPopup, $q, $timeout, $ionicHistory, $ionicActionSheet) {
 		$scope.params = $stateParams;

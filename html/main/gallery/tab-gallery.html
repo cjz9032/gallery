@@ -1,7 +1,6 @@
 <ion-view ng-init="vm=vm||{}">
 	<ion-scroll delegate-handle="boardsScroll" direction="x" class="tsb-hscroll" style=" position: absolute; top: 0; left: 0; right: 55px;">
-		<span id="board-{{::msgBoard.BoardNo}}" 
-			ng-click="vm.scroll(msgBoard.BoardNo)"
+		<span id="board-{{::msgBoard.BoardNo}}"
 			ng-class="{'active':msgBoard.BoardNo===vm.p.BoardNo*1}" 
 			ui-sref="tab.gallery.galleryList({BoardNo:msgBoard.BoardNo,CUserID:0})" 
 			ng-repeat="msgBoard in ::MsgBoard.data.boards track by $index">
