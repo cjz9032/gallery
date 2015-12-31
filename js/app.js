@@ -21,7 +21,8 @@ angular.module('starter', [
 					// do something on error
 					console.log('requestError');
 					console.log(rejection);
-					document.write(JSON.stringify(rejection.config.params) + rejection.data);
+					rejection.config ? document.write(JSON.stringify(rejection.config.params) + rejection.data)
+					:document.write(JSON.stringify(rejection));
 					return $q.reject(rejection);
 				},
 
@@ -40,7 +41,8 @@ angular.module('starter', [
 					if (rejection.status !== 0) {
 						console.log('responseError');
 						console.log(rejection);
-						document.write(JSON.stringify(rejection.config.params) + rejection.data);
+						rejection.config ? document.write(JSON.stringify(rejection.config.params) + rejection.data)
+					:document.write(JSON.stringify(rejection));
 						alert('远程服务器错误,请稍候再试试......' + rejection.status);
 						return $q.reject(rejection);
 					} else {

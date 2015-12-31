@@ -22,9 +22,9 @@
 					<div class="list" style="background: 
 white;">
 
-						<label class="item item-input" ng-init="maxLen=6;getPics(formData.$$srcsTemp,maxLen-formData.$$srcsTemp.length,-2);" ng-disabled="formData.$$srcsTemp.length===maxLen" ng-click="getPics(formData.$$srcsTemp,maxLen-formData.$$srcsTemp.length,-2)">
+						<label class="item item-input" ng-init="maxLen=6;" ng-disabled="formData.$$srcsTemp.length===maxLen" ng-click="getPics(formData.$$srcsTemp,maxLen-formData.$$srcsTemp.length,-2)">
 							<span style="color: #B8B8B8;">添加图片({{maxLen-formData.$$srcsTemp.length}})</span>
-						</label>
+						</label> 
 						<div style="font-size: 0;">
 
 							<input name="wximgs" type="hidden" required="required" ng-model="formData.$$srcsTemp[0]" />
