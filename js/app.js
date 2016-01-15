@@ -37,7 +37,7 @@ angular.module('starter', [
 				// optional method
 				'responseError': function(rejection) {
 					// do something on error 
-
+					if (rejection.status === 0) alert('0');
 					if (rejection.status !== 0) {
 						console.log('responseError');
 						console.log(rejection);
