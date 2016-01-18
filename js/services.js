@@ -216,6 +216,7 @@ angular.module('starter.services', [])
 			allFavs, PageNum = {};
 		this.phase = {};
 		this.data = [];
+		this.pageData={};
 		this.IsLast = {};
 
 		function _getFav() {
@@ -233,12 +234,16 @@ angular.module('starter.services', [])
 
 		function _setData(items) {
 			if (items.length) {
-
+				var thePage=[];
 				_.each(items, function(item, index, list) {
-					if (!!_.findWhere($this.data, {
+					var tmp;
+					if (tmp = _.findWhere($this.data, {
 							CustomerID: item.CustomerID
-						}) || !(item.FirstName || item.Avatar)) {
-						return false;
+						})   ) {
+							if(!(item.FirstName || item.Avatar)){
+								return false;
+							} 
+							thePage.push(tmp);
 					} else {
 						//fix Sex
 						item.Sex = !!item.Sex;
@@ -248,11 +253,12 @@ angular.module('starter.services', [])
 						// bind fav key
 						_bindFav(item);
 						$this.data.push(item);
+						thePage.push(item);
 					}
 				});
 			}
 
-			return $this.data;
+			return thePage;
 		}
 
 		this.nextPage = function(paramsCe) {
@@ -263,7 +269,10 @@ angular.module('starter.services', [])
 					page: next_page
 				});
 
-			return $this.query(params).then(function() {}, function() {
+			return $this.query(params).then(function(thePage) {
+				$this.pageData[keyName]=$this.pageData[keyName]||[]; 
+				$this.pageData[keyName]=$this.pageData[keyName].concat(thePage); 
+			}, function() {
 				$this.IsLast[keyName] = true;
 				PageNum[keyName] -= 1;
 			})
