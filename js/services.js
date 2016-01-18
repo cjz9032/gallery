@@ -475,22 +475,23 @@ angular.module('starter.services', [])
 					}
 
 					if (item.AttachFiles.length) {
-						var qq = $('<img/>'),
-							dfd = $q.defer();
-						promises.push(dfd.promise);
-						qq.attr('src', item.AttachFiles[0]).load(function() {
-							item.fstScale = (qq[0].height / qq[0].width) || 0;
+//						var qq = $('<img/>'),
+//							dfd = $q.defer();
+//						promises.push(dfd.promise);
+//						qq.attr('src', item.AttachFiles[0]).load(function() {
+//							item.fstScale = (qq[0].height / qq[0].width) || 0;
 							if (!_.findWhere($this.data, {
 									MsgID: item.MsgID
 								})) {
+								item.fstScale=(item.FIMGH/item.FIMGW)||0;
 								unshift ? $this.data.unshift(item) : $this.data.push(item);
 							}
-							dfd.resolve();
-						}).error(function() {
-							item.fstScale = 0;
-							unshift ? $this.data.unshift(item) : $this.data.push(item);
-							dfd.resolve();
-						});
+//							dfd.resolve();
+//						}).error(function() {
+//							item.fstScale = 0;
+//							unshift ? $this.data.unshift(item) : $this.data.push(item);
+//							dfd.resolve();
+//						});
 					} else {
 						item.fstScale = 0;
 						unshift ? $this.data.unshift(item) : $this.data.push(item);

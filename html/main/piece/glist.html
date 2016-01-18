@@ -11,10 +11,10 @@
 
 				<div class="item item-body" style="padding: 0;">
 
-					<a style="line-height: 0;" ng-href=" {{ $root.toState.name==='tab.gallery.galleryList'
+					<a  style="line-height: 0;" ng-href=" {{ $root.toState.name==='tab.gallery.galleryList'
 						? '#/galleryView/'+msg.MsgID
 						:  '#/topicView/'+msg.MsgID     }}">
-						<img class="full-image" ng-src="{{msg.AttachFiles[0]}}" on-hold="::openCarousel(msg.AttachFiles)">
+						<img   ng-style="{ 'height' :(msg.fstScale*(fullWidth - 20)||'null') + 'px'}" class="full-image" ng-src="{{msg.AttachFiles[0]}}" on-hold="::openCarousel(msg.AttachFiles)">
 						<span style="line-height: initial;" class="badge badge-dark " ng-bind=" msg.AttachFiles.length"></span>
 					</a>
 
