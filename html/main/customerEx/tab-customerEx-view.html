@@ -46,7 +46,7 @@
 
 						</div>
 
-						<ion-infinite-scroll distance="10%" ng-if="customer&&!Msg.IsLast[keyName]" on-infinite="loadMore()">
+						<ion-infinite-scroll distance="2%" ng-if="customer&&!Msg.IsLast[keyName]" on-infinite="loadMore()">
 						</ion-infinite-scroll>
 						<div class="padding" ng-if="Msg.IsLast[keyName]" style="text-align: center;">没有更多了...</div>
 					</div>

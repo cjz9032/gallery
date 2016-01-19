@@ -2,7 +2,7 @@
 	  | filter:(params.BoardNo*1 ?    {BoardNo:(params.BoardNo*1)}  :  undefined )     :true            
 	| filter :  myComp          
 	  | orderBy:'-MsgID'
-	  ) track by msg.MsgID">
+	  ) track by msg.MsgID" item-render-buffer="2">
 
 			<div class="list card">
 				<div class="item item-avatar" ng-include="'avatar-with-edit.html'" ui-set="uiSet" var="customer" expression="(CustomerEx.data | filter:{CUserID:msg.CUserID }:true)[0]">

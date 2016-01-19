@@ -298,7 +298,7 @@ angular.module('starter.controllers', [])
 			//console.log($(lll).offset().left);
 			console.log($(lll));
 			console.log($(lll).offset().left);
-           var leftOffset=$ionicScrollDelegate.$getByHandle('boardsScroll').getScrollPosition().left ;
+			var leftOffset = $ionicScrollDelegate.$getByHandle('boardsScroll').getScrollPosition().left;
 			var realLeft = leftOffset + $(lll).offset().left;
 			$ionicScrollDelegate.$getByHandle('boardsScroll').scrollTo(realLeft, 0);
 			//$ionicScrollDelegate.$getByHandle('boardsScroll').anchorScroll(lll);
@@ -308,9 +308,9 @@ angular.module('starter.controllers', [])
 			//$location.hash('');
 
 			vm.p = r;
-			$timeout(function(){
+			$timeout(function() {
 				vm.scroll(r.BoardNo);
-			},0); 
+			}, 0);
 			//			$timeout(function(){
 			//					$ionicScrollDelegate.$getByHandle('boardsScroll').resize();
 			//			$ionicScrollDelegate.$getByHandle('boardsScroll').scrollTo(0,0,false);
@@ -598,70 +598,129 @@ angular.module('starter.controllers', [])
 })
 
 .controller('TopicViewCtrl', function($scope, $stateParams, WX, $timeout, $rootScope, $ionicBackdrop) {
-	$scope.initCommonModal($scope);
-	$scope.params = $stateParams;
-	$scope.Msg.get($stateParams.MsgID * 1).then(function(msg) {
-		$scope.msg = msg;
-		var title = msg.Subject + ',已经获得' + msg.Star + '个赞,为他点个赞吧';
-		if (msg.Star < 10) {
-			title = msg.Subject + '期待你的点赞';
-		}
-		setTimeout(function() {
-			var link = location.origin + location.pathname + '?tkid=' + $scope.Profile.info.UserID + location.hash;
-			WX.share({
-				link: link,
-				title: title,
-				desc: msg.Detail,
-				imgUrl: msg.AttachFiles[0]
-			});
-		}, 0);
-
-		$scope.Fav.getMsgFavs(msg);
-		$scope.Msg.getsOnes(msg.CUserID, 6).then(function(myMsgs) {
-			$scope.myMsgs = myMsgs;
-		})
-		$scope.CustomerEx.getByCUID(msg.CUserID).then(function(r) {
-			$scope.customer = r;
-		});
-	});
-
-
-})
-
-.controller('CustomerExViewCtrl', function($scope, $stateParams, WX, $timeout) {
-
-
-
-	$scope.params = $stateParams;
-	$scope.CustomerEx.get({
-		CustomerID: $scope.params.CustomerID * 1,
-		CUserID: $scope.params.CUserID * 1
-	}).then(function(r) {
-		$scope.customer = r;
-		$scope.loadMore = function(paramsCe) {
-			$scope.loadingShow();
-			var p = {
-				CUserID: r.CUserID
+		$scope.initCommonModal($scope);
+		$scope.params = $stateParams;
+		$scope.Msg.get($stateParams.MsgID * 1).then(function(msg) {
+			$scope.msg = msg;
+			var title = msg.Subject + ',已经获得' + msg.Star + '个赞,为他点个赞吧';
+			if (msg.Star < 10) {
+				title = msg.Subject + '期待你的点赞';
 			}
-			$scope.keyName = $scope.$filter('getKeyName')(p);
-			if ($scope.Msg.IsLast[$scope.keyName]) {
-				$scope.loadingHideDelay();
+			setTimeout(function() {
+				var link = location.origin + location.pathname + '?tkid=' + $scope.Profile.info.UserID + location.hash;
+				WX.share({
+					link: link,
+					title: title,
+					desc: msg.Detail,
+					imgUrl: msg.AttachFiles[0]
+				});
+			}, 0);
+
+			$scope.Fav.getMsgFavs(msg);
+			$scope.Msg.getsOnes(msg.CUserID, 6).then(function(myMsgs) {
+				$scope.myMsgs = myMsgs;
+			})
+			$scope.CustomerEx.getByCUID(msg.CUserID).then(function(r) {
+				$scope.customer = r;
+			});
+		});
+
+
+	})
+	.controller('ReplyListCtrl', function($scope, $stateParams, $rootScope, $http, $q, $filter,$ionicHistory) {
+		$scope.initCommonModal($scope);
+		$scope.params = $stateParams;
+		var vm = $scope.vm = {};
+		vm.replyMsgs = [];
+		var Msg = $scope.Msg;
+		//send
+		var random = Math.floor(Math.random() * 10000 + 999999);
+
+		function sendMsg() {
+			if (!$scope.Profile.info.Subscribe) {
+				$scope.bigIMG('images/qrcode.300.400.jpg');
 				return false;
 			}
-			$scope.Msg.nextPage(p)
-				.then(function() {
-
-				})
-				.finally(function() {
-					$scope.$broadcast("scroll.infiniteScrollComplete");
+			var params = {
+				msgid: $scope.params.MsgID,
+				msg_detail: vm.detail
+			};
+			var params2 = $filter('setSD')(params);
+			$scope.loadingShow();
+			$http.post('/handler/exbcustomer.ashx?act=ReplyMsg', params2)
+				.then(function(result) {
+					var r = result.data;
 					$scope.loadingHideDelay();
+					if (r.status !== '0')
+						alert(r.msg)
+					else {
+						newSendMsg = {
+							Detail: vm.detail,
+							CUserID: $scope.Profile.info.CUserID,
+							MsgID: ++random
+						}
+						vm.replyMsgs.push(newSendMsg);
+					}
+					vm.detail = '';
 				});
-		};
+		}
+		//gets
+		$scope.loadingShow();
+		$http({
+			method: 'GET',
+			url: "/static/test/Msg/reply.aspx",
+			params: {
+				sendmsgid: $scope.params.MsgID
+			}
+		}).then(function(result) {
+			$scope.loadingHideDelay();
+			var r = result.data;
+			vm.replyMsgs = vm.replyMsgs.concat(r.data);
+			vm.sendMsg = sendMsg;
+			$scope.Msg._getsMsgsC(vm.replyMsgs).then(function() {});
+					$ionicHistory.nextViewOptions({
+			disableBack: true,
+			historyRoot: true
+		});
+		})
 
 
-	});
 
-})
+	})
+	.controller('CustomerExViewCtrl', function($scope, $stateParams, WX, $timeout) {
+
+
+
+		$scope.params = $stateParams;
+		$scope.CustomerEx.get({
+			CustomerID: $scope.params.CustomerID * 1,
+			CUserID: $scope.params.CUserID * 1
+		}).then(function(r) {
+			$scope.customer = r;
+			$scope.loadMore = function(paramsCe) {
+				$scope.loadingShow();
+				var p = {
+					CUserID: r.CUserID
+				}
+				$scope.keyName = $scope.$filter('getKeyName')(p);
+				if ($scope.Msg.IsLast[$scope.keyName]) {
+					$scope.loadingHideDelay();
+					return false;
+				}
+				$scope.Msg.nextPage(p)
+					.then(function() {
+
+					})
+					.finally(function() {
+						$scope.$broadcast("scroll.infiniteScrollComplete");
+						$scope.loadingHideDelay();
+					});
+			};
+
+
+		});
+
+	})
 
 .controller('PublishCtrl', function($scope, IO, $timeout, $stateParams, $rootScope) {
 	var vm = $scope.vm = {};

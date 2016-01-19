@@ -150,8 +150,8 @@ angular.module('starter', [
 
 .run(function($rootScope, $http, MSGBOARD_CONFIG, $state, Profile, authorization, $timeout, $ionicNavBarDelegate, $ionicBackdrop,$ionicHistory,$ionicLoading) {
 	//var hideList=['tab.publish','tab.msgEdit'],
-	var hideList = ['tab.publish', 'tab.msgEdit'],
-		hideList2 = ['tab.gallery.galleryList', 'tab.customerExList', 'tab.customerTkList'],
+	var hideList = ['tab.publish', 'tab.msgEdit','tab.replyList'],
+		hideList2 = ['tab.gallery.galleryList', 'tab.customerExList', 'tab.customerTkList','tab.replyList'],
 		subList = ['tab.publish'];
 	$rootScope.$on('$stateChangeStart', function(event, toState, toStateParams, fromState, returnToStateParams) {
 	//	if ($ionicBackdrop._element.hasClass('active')) {
@@ -380,6 +380,17 @@ angular.module('starter', [
 					controller: 'TopicViewCtrl'
 				}
 			}
+		})
+		.state('tab.replyList', {
+			cache: false,
+			url: '^/replyList/:MsgID',
+			views: {
+				'tab-gallery': {
+					templateUrl: 'tab-reply-list.html',
+					controller: 'ReplyListCtrl'
+				}
+			},
+			t:'评论...'
 		})
 		.state('tab.account', {
 			url: '^/account',

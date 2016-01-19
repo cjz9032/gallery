@@ -1,0 +1,41 @@
+<ion-view>
+
+	<div class="bar bar-header  ">
+
+		<button type="submit" ui-sref="tab.galleryView({ MsgID : +params.MsgID})"  class="title button button-clear button-positive">
+			< 返回 
+		</button>
+	</div>
+	<div class="bar bar-footer  " style="padding: 0 10px;">
+
+		<div class="item item-input-inset" style="width: 100%;border: 0;
+padding: 0;">
+			<label class="item-input-wrapper">
+				<input type="text" placeholder="写点什么..." ng-model="vm.detail">
+			</label>
+			<button ng-click="vm.sendMsg()" ng-disabled="!vm.detail" class="button button-small button-clear button-positive">
+				发送
+			</button>
+		</div>
+
+	</div>
+	<ion-content class="has-header" style="background-color:  #EEEEEE; bottom: 44px;" >
+
+		<div class="list"  >
+			<a  class="item" ng-if="!vm.replyMsgs.length" style="text-align: center;">这里还没有评论~</a>
+			<a class="item item-avatar"  
+				ng-repeat="rmsg in vm.replyMsgs  | orderBy:'-MsgID' track by rmsg.MsgID"
+				ui-set="uiSet" var="customer" expression="::rmsg.CUserID===Profile.info.CUserID ? Profile.info :   (CustomerEx.data | filter:{CUserID:rmsg.CUserID }:true)[0]"
+				 >
+				<img ng-src="{{::customer.Avatar}}">
+				<h2>{{::customer.FirstName}}</h2>
+				<p>{{::rmsg.Detail}}</p>
+			</a> 
+			
+		</div>
+
+		</ion-list>
+
+	</ion-content>
+
+</ion-view>

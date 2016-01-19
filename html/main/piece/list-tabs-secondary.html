@@ -3,3 +3,9 @@
 		<a class="tab-item" href="javascript:;" ng-disabled="msg.IsFav" ng-click="testViewFn2($event,msg)">
 			<i class="icon ion-thumbsup" ng-style="{'color':msg.IsFav?'#0a9ec7':'' }"></i>
 		</a>
+	 
+	 <span   class="tab-item" style="font-size: 16px;" ui-sref="tab.replyList({MsgID:msg.MsgID})"> 
+	 	<span   style="position: initial;
+    display: initial;" class="badge  ">{{msg.ReplyRate}}</span>
+						</span>
+			 
